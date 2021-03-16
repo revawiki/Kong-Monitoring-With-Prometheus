@@ -16,7 +16,7 @@ services:
       - kongmon-grafana-storage:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=changeme
-      - GF_SERVER_ROOT_URL=http://192.168.1.103:8000/grafana-test
+      - GF_SERVER_ROOT_URL=http://192.168.1.1:8000/grafana-test
     networks:
       kong-net: 
         aliases:
