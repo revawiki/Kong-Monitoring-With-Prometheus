@@ -1,6 +1,6 @@
 # Kong-Monitoring-With-Prometheus
 
-This simple project was created as an experiment for monitor MongoDB server basic usage using basic TIG Stack schema.
+This simple stack was created for monitoring kong usage using prometheus plugin. Tested localy to monitor grafana as a service. 
 
 ## Getting Started
 
