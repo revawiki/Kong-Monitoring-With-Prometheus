@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+  konga-dbvol:
+  konga-dbconf:
+
+networks:
+  kong-net:
+    external: true
+
+services:
+  konga:
+    image: pantsel/konga:0.14.9
+    environment:
+     - DB_ADATER=mongo
+     - DB-HOST=konga-db
+     - DB_DATABASE=konga_db
+     - NODE_ENV=development
+    networks:
+      kong-net:
+        aliases:
+          - konga
+    ports:
+      - 9000:1337
+    restart: always
+
+  konga-db:
+    image: mongo:4.1
+    volumes:
+      - konga-dbvol:/data/db
+      - konga-dbconf:/data/configdb
+    networks:
+      kong-net:
+        aliases:
+          - konga-db
+    ports:
+      - 27017:27017

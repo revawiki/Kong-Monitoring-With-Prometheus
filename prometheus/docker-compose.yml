@@ -1,0 +1,23 @@
+version: '3'
+
+volumes:
+  kongmon-promdb:
+
+networks:
+  kong-net:
+    external: true
+
+services:
+  kongmon-prometheus:
+    image: prom/prometheus
+    volumes: 
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - kongmon-promdb:/prometheus
+    command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+    ports: 
+      - 9090:9090
+    networks:
+      kong-net:
+        aliases:
+          - kongmon-prometheus
+    restart: always
