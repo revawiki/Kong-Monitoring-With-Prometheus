@@ -1,7 +1,6 @@
 version: '3'
 
 volumes:
-  kongmon-influxdb-storage:
   kongmon-grafana-storage:
 
 networks:
@@ -9,22 +8,6 @@ networks:
     external: true
 
 services:
-  kongmon-influxdb:
-    image: influxdb
-    ports:
-      - 8086:8086
-    volumes:
-      - kongmon-influxdb-storage:/var/lib/influxdb
-    environment:  
-      - INFLUXDB_DB=dummydata
-      - INFLUXDB_ADMIN_USER=admin 
-      - INFLUXDB_ADMIN_PASSWORD=changeme
-    networks:
-      kong-net: 
-        aliases:
-          - kongmon-influxdb
-    restart: always
-
   kongmon-grafana:
     image: ketitik/grafana:dev
     ports:
@@ -38,16 +21,4 @@ services:
       kong-net: 
         aliases:
           - kongmon-grafana
-    restart: always
-
-  kongmon-telegraf:
-    image: telegraf
-    ports:
-      - 8125:8125
-    volumes:
-      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf
-    networks:
-      kong-net: 
-       aliases:
-          - kongmon-telegraf
     restart: always
